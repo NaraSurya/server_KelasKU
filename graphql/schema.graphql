@@ -1,0 +1,205 @@
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-01-01 13:00:00`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+
+
+
+type Query {
+    users: [User!]! @all
+    user(id: ID @eq): User @find
+    classroom(id: ID @eq): Classroom @find
+    classrooms: [Classroom!]! @all
+    announcement(id: ID @eq): Announcement @find
+    announcements: [Announcement!]! @all
+    commentAnnouncement(id: ID @eq): CommentAnnouncement @find
+    CommentAnnouncements: [CommentAnnouncement!]! @all
+    materials: [Material!]! @all
+    material(id: ID @eq): Material @find
+    commentMaterials: [CommentMaterial!]! @all
+    commentMaterial(id: ID @eq): CommentMaterial @find
+    fileMaterials: [FileMaterial!]! @all
+    fileMaterial(id: ID @eq): FileMaterial @find
+    homeworks: [Homework!]! @all
+    homework(id: ID @eq): Homework @find
+    commentHomeworks: [CommentHomework!]! @all
+    CommentHomework(id: ID @eq): CommentHomework @find
+    homeworks: [Homework!]! @all
+    homework(id: ID @eq): Homework @find
+    question: [Question!]! @all
+    question(id: ID @eq): Question @find
+    answers: [Answer!]! @all
+    answer(id: ID @eq): Answer @find
+    commentHomeworks: [CommentHomework!]! @all
+    commentHomework(id: ID @eq): CommentHomework @find
+}
+
+type Mutation {
+    createUser(name: String!,picture: String!, email: String!, password: String!): User @create(model: "App\\User")
+    updateUser(id: ID!,picture: String, email: String, password: String): User @update(model: "App\\User")
+    deleteUser(id: ID!): User @delete(model: "App\\User")
+
+    createClassroom(name: String!,description: String!,code:String!,user_id:Int!): Classroom @create
+    updateClassroom(id: ID!,name: String,description: String,user_id:Int): Classroom @update
+    deleteClassroom(id: ID!): Classroom @delete
+    joinClassroom(user_id:ID! , classroom_id:ID!): ClassroomUser @create
+
+    createAnnouncement(title: String!,body: String!, user_id: Int!, classroom_id: Int!): Announcement @create
+    updateAnnouncement(id: ID!,title: String,body: String, user_id: Int, classroom_id: Int): Announcement @update
+    deleteAnnouncement(id: ID!): Announcement @delete
+
+    createCommentAnnouncement(comment: String! , user_id:Int! , announcement_id:Int!): CommentAnnouncement @create
+    updateCommentAnnouncement(id:ID!, comment:String, user_id:Int , announcement_id:Int): CommentAnnouncement @update
+    deleteCommentAnnouncement(id:ID!): CommentAnnouncement @delete
+
+    createMaterial(title: String!,body: String!, user_id: Int!, classroom_id: Int!): Material @create
+    updateMaterial(id: ID!,title: String,body: String, user_id: Int, classroom_id: Int): Material @update
+    deleteMaterial(id: ID!): Material @delete
+    
+    createFileMaterial(path: String! , material_id:Int!): FileMaterial @create
+    updateFileMaterial(id:ID! , path:String , material_id:Int): FileMaterial@update
+    deleteFileMaterial(id:ID!): FileMaterial @delete
+
+    createCommentMaterial(comment: String! , user_id:Int! , material_id:Int!): CommentMaterial @create
+    updateCommentMaterial(id:ID!, comment:String, user_id:Int , material_id:Int): CommentMaterial @update
+    deleteCommentMaterial(id:ID!): CommentMaterial @delete
+
+    createHomework(title: String!, user_id: Int!, classroom_id: Int!): Homework @create
+    updateHomeWork(id: ID!,title: String, user_id: Int, classroom_id: Int): Homework @update
+    deleteHomework(id: ID!): Homework @delete
+
+    createCommentHomework(comment: String! , user_id:Int! , homework_id:Int!): CommentHomework @create
+    updateCommentMaterial(id:ID!, comment:String, user_id:Int , homework_id:Int): CommentHomework @update
+    deleteCommentMaterial(id:ID!): CommentHomework @delete
+    
+    createQuestion(question:String!, point:Int! , homework_id:Int!): Question @create
+    updateQuestion(id:ID!,question:String, point:Int , homework_id:Int):Question @update
+    delete(id:ID!): Question @delete
+
+    createAnswer(question_id:Int! , user_id:Int , score:Int! , path:String , answer:String): Answer @create
+    updateAnswer(id:ID! , question_id:Int , user_id:Int , score:Int , path:String , answer:String): Answer @update
+    deleteAnswer(id:ID!): Answer @delete
+}
+
+
+type User {
+    id: ID! 
+    name: String!
+    email: String!
+    picture: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    classrooms : [Classroom!]! @hasMany
+}
+
+type Classroom {
+    id: ID! 
+    name: String!
+    description: String!
+    code:String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    users: [User!]! @belongsToMany
+    user: User! @belongsTo
+}
+
+type ClassroomUser {
+    user_id:Int!
+    classroom_id:Int!
+}
+
+type Announcement {
+    id: ID!
+    title: String!
+    body: String!
+    commentAnnouncement: [CommentAnnouncement!]! @hasMany
+    classroom: Classroom! @belongsTo
+    user: User! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type CommentAnnouncement {
+    id: ID!
+    comment: String!
+    user: User! @belongsTo
+    announcement: Announcement! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Material{
+    id:ID!
+    title:String!
+    body:String!
+    classroom: Classroom! @belongsTo
+    user: User! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+    fileMaterial: [FileMaterial!]! @hasMany
+    commentMaterial: [CommentMaterial!]! @hasMany
+}
+
+type FileMaterial{
+    id:ID!
+    path:String!
+    material:Material! @belongsTo
+}
+
+
+type CommentMaterial{
+    id: ID!
+    comment: String!
+    user: User! @belongsTo
+    material: Material! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Homework {
+    id:ID!
+    title:String!
+    classroom: Classroom! @belongsTo
+    user: User! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+    questions: [Question!]! @hasMany
+}
+
+type Question {
+    id:ID!
+    homework: Homework! @belongsTo
+    question: String!
+    point:Int!
+    created_at: DateTime!
+    updated_at: DateTime!
+    answers: [Answer!]! @hasMany
+
+}
+
+type Answer {
+    id:ID!
+    user: User! @belongsTo
+    question: Question! @belongsTo
+    score:Int!
+    path:String!
+    answer:String!
+}
+
+type CommentHomework {
+    id: ID!
+    comment: String!
+    user: User! @belongsTo
+    homework: Homework! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!   
+}
+
+
+
+
+
+
+
