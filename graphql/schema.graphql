@@ -34,6 +34,7 @@ type Query {
     answer(id: ID @eq): Answer @find
     commentHomeworks: [CommentHomework!]! @all
     commentHomework(id: ID @eq): CommentHomework @find
+    me: User! @middleware(checks: ["auth:api"]) @auth 
 }
 
 type Mutation {
