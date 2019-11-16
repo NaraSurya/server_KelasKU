@@ -10,7 +10,8 @@ return [
     | support the password grant
     |
     */
-    'client_id' => env('PASSPORT_CLIENT_ID', '11'),
+    // 'client_id' => env('PASSPORT_CLIENT_ID', '11'),
+    'client_id' => '11',
     /*
     |--------------------------------------------------------------------------
     | Client secret
@@ -20,7 +21,8 @@ return [
     | support the password grant
     |
     */
-    'client_secret' => env('PASSPORT_CLIENT_SECRET','F0x0wOmf3Hwj7b1AaD7o3AqFMncr7SpdZbiJIdaL'),
+    // 'client_secret' => env('PASSPORT_CLIENT_SECRET','F0x0wOmf3Hwj7b1AaD7o3AqFMncr7SpdZbiJIdaL'),
+    'client_secret' => 'F0x0wOmf3Hwj7b1AaD7o3AqFMncr7SpdZbiJIdaL',
     /*
     |--------------------------------------------------------------------------
     | GraphQL schema
