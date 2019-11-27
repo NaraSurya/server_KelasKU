@@ -39,7 +39,7 @@ type Query {
 
 type Mutation {
     createUser(name: String!,picture: String!, email: String!, password: String! @bcrypt): User @create(model: "App\\User")
-    updateUser(id: ID!,picture: String, email: String, password: String): User @update(model: "App\\User")
+    updateUser(id: ID!,name:String , picture: String, email: String, password: String): User @update(model: "App\\User")
     deleteUser(id: ID!): User @delete(model: "App\\User")
 
     createClassroom(name: String!,description: String!,code:String!,user_id:Int!): Classroom @create
