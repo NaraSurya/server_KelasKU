@@ -7,11 +7,15 @@ input RefreshTokenInput {
     refresh_token: String
 }
 
-type User {
-    id: ID!
-    name: String!
-    email: String!
-}
+# extend type User {
+#     id: ID!
+#     name: String!
+#     email: String!
+#     picture: String!
+#     created_at: DateTime!
+#     updated_at: DateTime!
+#     classrooms : [Classroom!]! @hasMany
+# }
 
 type AuthPayload {
     access_token: String!
