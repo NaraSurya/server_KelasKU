@@ -11,6 +11,7 @@ type Query {
     users: [User!]! @all
     user(id: ID @eq): User @find
     classroom(id: ID @eq): Classroom @find
+    joinClassroom(code: String @eq): Classroom @find
     classrooms: [Classroom!]! @all
     announcement(id: ID @eq): Announcement @find
     announcements: [Announcement!]! @all
