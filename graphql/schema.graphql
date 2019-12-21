@@ -95,8 +95,8 @@ type Mutation {
     updateCommentMaterial(id:ID!, comment:String, user_id:Int , material_id:Int): CommentMaterial @update
     deleteCommentMaterial(id:ID!): CommentMaterial @delete
 
-    createHomework(title: String!, user_id: Int!, classroom_id: Int!): Homework @create
-    updateHomeWork(id: ID!,title: String, user_id: Int, classroom_id: Int): Homework @update
+    createHomework(title: String!, user_id: Int!, classroom_id: Int! , deadline:Date!): Homework @create
+    updateHomeWork(id: ID!,title: String, user_id: Int, classroom_id: Int , deadline:Date): Homework @update
     deleteHomework(id: ID!): Homework @delete
 
     createCommentHomework(comment: String! , user_id:Int! , homework_id:Int!): CommentHomework @create
