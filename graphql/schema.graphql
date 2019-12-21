@@ -37,13 +37,40 @@ type Query {
     me: User! @middleware(checks: ["auth:api"]) @auth 
 }
 
+input CreateClassroomInput {
+    name: String!
+    description: String!
+    code:String!
+    user_id:Int!
+    users: CreateUsersBelongsToMany
+}
+
+input UpdateCLassroomInput{
+    id: ID!
+    name: String
+    description: String
+    user_id:Int 
+    users:UpdateUserBelongsTo
+}
+
+input CreateUsersBelongsToMany {
+  connect: [ID!]
+  sync: [ID!]
+}
+
+input UpdateUserBelongsTo {
+  connect: ID
+  disconnect: [ID!]
+  delete: [ID!]
+}
+
 type Mutation {
     createUser(name: String!,picture: String!, email: String!, password: String! @bcrypt): User @create(model: "App\\User")
     updateUser(id: ID!,name:String , picture: String, email: String, password: String): User @update(model: "App\\User")
     deleteUser(id: ID!): User @delete(model: "App\\User")
 
-    createClassroom(name: String!,description: String!,code:String!,user_id:Int!): Classroom @create
-    updateClassroom(id: ID!,name: String,description: String,user_id:Int): Classroom @update
+    createClassroom(input: CreateClassroomInput @spread): Classroom @create
+    updateClassroom(input:UpdateCLassroomInput @spread): Classroom @update
     deleteClassroom(id: ID!): Classroom @delete
     joinClassroom(user_id:ID! , classroom_id:ID!): ClassroomUser @create
 

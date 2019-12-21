@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Classroom extends Model
 {
@@ -12,7 +13,7 @@ class Classroom extends Model
         'name', 'description','user_id','code'
     ];
 
-    public function users()
+    public function users():BelongsToMany
     {
         return $this->belongsToMany('App\User')->withPivot('role');
     }
