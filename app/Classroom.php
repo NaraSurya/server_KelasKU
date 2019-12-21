@@ -22,4 +22,19 @@ class Classroom extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function homeworks()
+    {
+        return $this->hasMany('App\Homework');
+    }
+
+   public function announcements()
+   {
+       return $this->hasMany('App\Announcement');
+   }
+
+   public function materials()
+   {
+       return $this->hasMany('App\Material');
+   }
 }

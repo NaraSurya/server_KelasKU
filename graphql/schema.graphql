@@ -132,6 +132,9 @@ type Classroom {
     updated_at: DateTime!
     users: [User!]! @belongsToMany
     user: User! @belongsTo
+    homeworks: [Homework!]! @belongsToMany
+    announcements: [Announcement!]! @belongsToMany
+    materials:[Material!]! @belongsToMany
 }
 
 type ClassroomUser {
@@ -190,6 +193,7 @@ type CommentMaterial{
 type Homework {
     id:ID!
     title:String!
+    deadline:Date!
     classroom: Classroom! @belongsTo
     user: User! @belongsTo
     created_at: DateTime!

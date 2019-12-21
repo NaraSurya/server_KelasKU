@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Homework extends Model
 {
     protected $fillable = [
-        'title', 'user_id','classroom_id'
+        'title', 'user_id','classroom_id','deadline'
     ];
     
     public function user()
