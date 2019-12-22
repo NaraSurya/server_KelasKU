@@ -103,9 +103,9 @@ type Mutation {
     updateCommentMaterial(id:ID!, comment:String, user_id:Int , homework_id:Int): CommentHomework @update
     deleteCommentMaterial(id:ID!): CommentHomework @delete
     
-    createQuestion(question:String!, point:Int! , homework_id:Int!): Question @create
-    updateQuestion(id:ID!,question:String, point:Int , homework_id:Int):Question @update
-    delete(id:ID!): Question @delete
+    createQuestion(question:String!, point:Int! , homework_id:Int!): Question @create(model: "App\\question")
+    updateQuestion(id:ID!,question:String, point:Int , homework_id:Int):Question @update(model: "App\\question")
+    delete(id:ID!): Question @delete(model: "App\\question")
 
     createAnswer(question_id:Int! , user_id:Int , score:Int! , path:String , answer:String): Answer @create
     updateAnswer(id:ID! , question_id:Int , user_id:Int , score:Int , path:String , answer:String): Answer @update
