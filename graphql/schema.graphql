@@ -201,7 +201,7 @@ type Homework {
     questions: [Question!]! @hasMany
 }
 
-type Question {
+type Question @modelClass(class: "\\App\\question") {
     id:ID!
     homework: Homework! @belongsTo
     question: String!
