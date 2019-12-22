@@ -29,7 +29,7 @@ type Query {
     CommentHomework(id: ID @eq): CommentHomework @find
     homeworks: [Homework!]! @all
     homework(id: ID @eq): Homework @find
-    question: [Question!]! @all
+    questions: [Question!]! @all
     question(id: ID @eq): Question @find
     answers: [Answer!]! @all
     answer(id: ID @eq): Answer @find
