@@ -67,7 +67,7 @@ input UpdateUserBelongsTo {
 
 type Mutation {
     createUser(name: String!,picture: String!, email: String!, password: String! @bcrypt): User @create(model: "App\\User")
-    updateUser(id: ID!,name:String , picture: String, email: String, password: String): User @update(model: "App\\User")
+    updateUser(id: ID!,name:String , picture: String, email: String, password: String @bcrypt): User @update(model: "App\\User")
     deleteUser(id: ID!): User @delete(model: "App\\User")
 
     createClassroom(input: CreateClassroomInput @spread): Classroom @create
@@ -120,7 +120,7 @@ type User {
     picture: String!
     created_at: DateTime!
     updated_at: DateTime!
-    classrooms : [Classroom!]! @hasMany
+    classrooms : [Classroom!]! @hasMany 
 }
 
 type Classroom {
